@@ -8,16 +8,15 @@ public class Main {
 
     public static void main(String[] args) {
 
-        // Insatntiate MVC
+        // Instantiate MVC
         BoardModel board = new BoardModel();
-        Player player = new Player();
         BoardController boardController = new BoardController(board);
-        BoardView view = new BoardView(boardController);
+        BoardView boardView = new BoardView(boardController);
 
         // Register view
-        board.addObserver(view);
+        board.addObserver(boardView);
 
         // Starting program
-        view.start();
+        boardView.start();
     }
 }

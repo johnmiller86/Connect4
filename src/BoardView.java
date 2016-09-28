@@ -1,22 +1,18 @@
-/**
- * BoardView class for connect 4.
- */
-
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Scanner;
 
 /**
- *
- * @author Martin Yeh
+ * View class for connect 4
+ * @author John Miller
  */
-public class BoardView implements Observer {
+class BoardView implements Observer {
 
     // Data Members
-    BoardController boardController;
+    private BoardController boardController;
 
     // Constructor
-    public BoardView(BoardController boardController ) {
+    BoardView(BoardController boardController) {
         this.boardController = boardController;
     }
 
@@ -27,13 +23,13 @@ public class BoardView implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println((String)arg + " 's turn... ");
+//        System.out.println((String)arg + " 's turn... ");
     }
 
     /**
      * This method is essentially to start the program.
      */
-    public void start() {
+    void start() {
         Scanner input = new Scanner(System.in);
         int connect_num, rows, cols;
 
@@ -78,10 +74,14 @@ public class BoardView implements Observer {
         System.out.println(boardController.printBoard());
 
         // Game loop
-        while (!boardController.complete()) {
+        while (!boardController.complete() && !boardController.isFull()) {
             System.out.println(boardController.getPlayer() + "'s turn");
             System.out.println("Enter a column number to add your chip.");
-            boardController.addMarker(input.nextInt(), boardController.getMark());
+            while (!boardController.addMarker(input.nextInt(), boardController.getMark())){
+                System.out.println("This column is not open!!");
+                System.out.println("Enter a column number to add your chip.");
+            }
+//            boardController.addMarker(input.nextInt(), boardController.getMark());
             System.out.println(boardController.printBoard());
             // Don't switch on last winning move
             if (!boardController.complete()) {

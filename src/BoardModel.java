@@ -4,17 +4,17 @@ import java.util.Observable;
  *
  * @author chefj
  */
-public class BoardModel extends Observable{
+class BoardModel extends Observable{
 
     // Instance vars
     private int rows, cols, connect_num;
     private char[][] board;
     private Player player;
 
-    public BoardModel(){}
+    BoardModel(){}
 
     // Constructor
-    public BoardModel(int rows, int cols, int connect_num){
+    BoardModel(int rows, int cols, int connect_num){
         this.rows = rows;
         this.cols = cols;
         this.connect_num = connect_num;
@@ -37,7 +37,7 @@ public class BoardModel extends Observable{
      * @param mark the player's mark.
      * @return valid move, true or false;
      */
-    public Boolean put(int col, char mark){
+    private Boolean put(int col, char mark){
 
         col -= 1;
         for (int i = rows - 1; i >= 0; i--){
@@ -75,7 +75,7 @@ public class BoardModel extends Observable{
         return board;
     }
 
-    public boolean gameComplete(){
+    boolean gameComplete(){
         int x, o;
 
         // Checking horizontal
@@ -149,14 +149,26 @@ public class BoardModel extends Observable{
 //    }
 
     /**
+     * Checks if the board is full.
+     * @return true or false.
+     */
+    boolean isFull(){
+        for (int i = 0; i < rows; i++){
+            for (int j = 0; j < cols; j++){
+                if (board[i][j] == ' '){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
      * Updates the board data.
      * @param col the new column.
      * @param mark the player's mark.
      */
-    public boolean updateData(int col, char mark) {
-        if (put(col, mark)){
-            return true;
-        }
-        return false;
+    boolean updateData(int col, char mark) {
+        return put(col, mark);
     }
 }

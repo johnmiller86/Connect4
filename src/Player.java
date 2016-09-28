@@ -1,30 +1,29 @@
-import java.util.Observable;
-
 /**
- * Class to model a player.
+ * Player class for connect 4.
+ * @author John Miller
  */
-public class Player{
+class Player{
 
     private final String PLAYER = "Player", COMPUTER = "Computer";
     private char playerMark;
     private String currentPlayer;
 
-    public Player(){
+    Player(){
         currentPlayer = PLAYER;
         playerMark = 'X';
     }
 
-    public char getMark(){
+    char getMark(){
         return playerMark;
     }
 
-    public String getCurrentPlayer(){
+    String getCurrentPlayer(){
         return currentPlayer;
     }
     /**
      * Switches players.
      */
-    public void switchPlayer(){
+    void switchPlayer(){
         if (currentPlayer.equals(PLAYER)){
             currentPlayer = COMPUTER;
             playerMark = 'O';
