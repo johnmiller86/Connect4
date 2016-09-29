@@ -9,7 +9,7 @@ import java.util.Scanner;
 class BoardView implements Observer {
 
     // Data Members
-    private BoardController boardController;
+    private final BoardController boardController;
 
     // Constructor
     BoardView(BoardController boardController) {
@@ -17,13 +17,13 @@ class BoardView implements Observer {
     }
 
     /**
-     * This method is called when the Model is changed.
-     * @param o the Model object that notifies the BoardView
-     * @param arg the data passed from the Model when notification is sent
+     * Prints the board when data is changed.
+     * @param observable the Model object that notifies the BoardView
+     * @param object the data passed from the Model when notification is sent
      */
     @Override
-    public void update(Observable o, Object arg) {
-//        System.out.println((String)arg + " 's turn... ");
+    public void update(Observable observable, Object object) {
+        System.out.println((String)object);
     }
 
     /**
@@ -67,30 +67,35 @@ class BoardView implements Observer {
         }
 
         // Configuring boardController
-        boardController = new BoardController(new BoardModel(rows, cols, connect_num));
+        boardController.configureBoard(rows, cols, connect_num);
 
         // Starting game
         System.out.println("Game starting...");
-        System.out.println(boardController.printBoard());
 
         // Game loop
-        while (!boardController.complete() && !boardController.isFull()) {
+        while (!boardController.gameComplete() && !boardController.isFull()) {
+
+            // Prompting user
             System.out.println(boardController.getPlayer() + "'s turn");
             System.out.println("Enter a column number to add your chip.");
-            while (!boardController.addMarker(input.nextInt(), boardController.getMark())){
+
+            // Attempting to add marker
+            while (!boardController.addMarker(input.nextInt())){
                 System.out.println("This column is not open!!");
                 System.out.println("Enter a column number to add your chip.");
             }
-//            boardController.addMarker(input.nextInt(), boardController.getMark());
-            System.out.println(boardController.printBoard());
-            // Don't switch on last winning move
-            if (!boardController.complete()) {
+
+            // Game won, don't switch player
+            if (!boardController.gameComplete()) {
                 boardController.switchPlayer();
             }
         }
 
         // Game over
-        System.out.println(boardController.getPlayer() + " wins!!!");
-        // Maybe tie....
+        if (boardController.isFull()){
+            System.out.println("The game is a draw...");
+        }else {
+            System.out.println(boardController.getPlayer() + " wins!!!");
+        }
     }
 }

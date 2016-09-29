@@ -4,17 +4,17 @@
 /**
  * @author John D. Miller
  */
-public class Main {
+class Main {
 
     public static void main(String[] args) {
 
         // Instantiate MVC
-        BoardModel board = new BoardModel();
-        BoardController boardController = new BoardController(board);
+        BoardModel boardModel = new BoardModel();
+        BoardController boardController = new BoardController(boardModel);
         BoardView boardView = new BoardView(boardController);
 
         // Register view
-        board.addObserver(boardView);
+        boardModel.addObserver(boardView);
 
         // Starting program
         boardView.start();
