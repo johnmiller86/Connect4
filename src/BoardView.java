@@ -74,15 +74,18 @@ class BoardView implements Observer {
 
         // Game loop
         while (!boardController.gameComplete() && !boardController.isFull()) {
-
-            // Prompting user
             System.out.println(boardController.getPlayer() + "'s turn");
-            System.out.println("Enter a column number to add your chip.");
-
-            // Attempting to add marker
-            while (!boardController.addMarker(input.nextInt())){
-                System.out.println("This column is not open!!");
+            if (boardController.getPlayer().equals(Player.PLAYER)) {
+                // Prompting user
                 System.out.println("Enter a column number to add your chip.");
+
+                // Attempting to add marker
+                while (!boardController.addMarker(input.nextInt())) {
+                    System.out.println("This column is not open!!");
+                    System.out.println("Enter a column number to add your chip.");
+                }
+            }else{
+                boardController.computerMove();
             }
 
             // Game won, don't switch player

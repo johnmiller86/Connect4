@@ -4,7 +4,7 @@
  */
 class Player{
 
-    private final String PLAYER = "Player", COMPUTER = "Computer";
+    public static final String PLAYER = "Player", COMPUTER = "Computer";
     private char playerMark;
     private String currentPlayer;
 
