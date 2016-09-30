@@ -8,7 +8,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * Controller class for connect 4
+ * Controller class for connect 4.
  * @author John Miller
  */
 class BoardController {

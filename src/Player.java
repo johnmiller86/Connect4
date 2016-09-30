@@ -1,5 +1,5 @@
 /**
- * Player class for connect 4.
+ * Class to model a player.
  * @author John Miller
  */
 class Player{
@@ -19,7 +19,7 @@ class Player{
 
     String getCurrentPlayer(){
         return currentPlayer;
-    }
+}
     /**
      * Switches players.
      */

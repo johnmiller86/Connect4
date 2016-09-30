@@ -1,7 +1,5 @@
-/*
- * Connect 4 Main Method
- */
 /**
+ * Connect 4 main method.
  * @author John D. Miller
  */
 class Main {
