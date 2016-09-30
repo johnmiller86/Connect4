@@ -1,11 +1,6 @@
-import sun.plugin.dom.DOMObject;
-import sun.plugin.javascript.navig.Array;
-
-import javax.xml.crypto.dsig.keyinfo.KeyValue;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.Map;
 
 /**
  * Controller class for connect 4.
@@ -143,7 +138,7 @@ class BoardController {
             int col = (int)kvp.getValue();
             int blocks = 0;
 
-            // Check for blocks down left right left diag right diag
+            // Check for blocks down left right left diagonal right diagonal
             // Down
             for (int i = row; i >= 0; i--){
                 if (board.getBoard()[i][col] == 'X'){

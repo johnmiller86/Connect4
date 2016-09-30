@@ -4,7 +4,7 @@
  */
 class Player{
 
-    public static final String PLAYER = "Player", COMPUTER = "Computer";
+    public static final String PLAYER = "Player";
     private char playerMark;
     private String currentPlayer;
 
@@ -25,7 +25,7 @@ class Player{
      */
     void switchPlayer(){
         if (currentPlayer.equals(PLAYER)){
-            currentPlayer = COMPUTER;
+            currentPlayer = "Computer";
             playerMark = 'O';
         }else{
             currentPlayer = PLAYER;
