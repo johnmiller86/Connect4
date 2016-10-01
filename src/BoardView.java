@@ -81,7 +81,7 @@ class BoardView implements Observer {
 
                 // Attempting to add marker
                 while (!boardController.addMarker(input.nextInt())) {
-                    System.out.println("This column is not open!!");
+                    System.out.println("Invalid move!!");
                     System.out.println("Enter a column number to add your chip.");
                 }
             }else{

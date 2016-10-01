@@ -39,10 +39,12 @@ class BoardController {
         if (col > 0) {
             col -= 1;
         }
-        for (int i = board.getRows() - 1; i >= 0; i--){
-            if (board.getBoard()[i][col] == ' '){
-                board.updateData(i, col, player.getMark());
-                return true;
+        if (col < board.getCols() && col >= 0) {
+            for (int i = board.getRows() - 1; i >= 0; i--) {
+                if (board.getBoard()[i][col] == ' ') {
+                    board.updateData(i, col, player.getMark());
+                    return true;
+                }
             }
         }
         return false;
@@ -234,8 +236,13 @@ class BoardController {
             for (int j = 0; j < board.getCols(); j++){
                 if (board.getBoard()[i][j] == 'X'){
                     x++;
+                    o = 0;
                 }else if(board.getBoard()[i][j] == 'O'){
                     o++;
+                    x = 0;
+                }else{
+                    x = 0;
+                    o = 0;
                 }
                 if (x >= board.getConnect_num() || o >= board.getConnect_num()){
                     return true;
@@ -249,8 +256,13 @@ class BoardController {
             for (int j = 0; j < board.getRows(); j++){
                 if (board.getBoard()[j][i] == 'X'){
                     x++;
+                    o = 0;
                 }else if(board.getBoard()[j][i] == 'O'){
                     o++;
+                    x = 0;
+                }else{
+                    x = 0;
+                    o = 0;
                 }
                 if (x >= board.getConnect_num() || o >= board.getConnect_num()){
                     return true;
@@ -261,15 +273,34 @@ class BoardController {
         // Checking forward slash
         for (int i = 0; i < board.getRows(); i++){
             for (int j = 0; j < board.getCols(); j++){
-                if (i + 2 < board.getRows() && j + 2 < board.getCols()) {
-                    if (board.getBoard()[i][j] == 'X' && board.getBoard()[i + 1][j + 1] == 'X' && board.getBoard()[i + 2][j + 2] == 'X'){
-                        return true;
-                    } else if (board.getBoard()[i][j] == 'O' && board.getBoard()[i + 1][j + 1] == 'O' && board.getBoard()[i + 2][j + 2] == 'O'){
+                if (i + board.getConnect_num() < board.getRows() && j + board.getConnect_num() < board.getCols()) {
+                    x = 0;
+                    o = 0;
+//                      if (board.getBoard()[i][j] == 'X' && board.getBoard()[i + 1][j + 1] == 'X' && board.getBoard()[i + 2][j + 2] == 'X'){
+//                        return true;
+//                    } else if (board.getBoard()[i][j] == 'O' && board.getBoard()[i + 1][j + 1] == 'O' && board.getBoard()[i + 2][j + 2] == 'O'){
+//                        return true;
+//                    }
+//                }
+                    for (int k = 0; i < board.getConnect_num(); k++) {
+                        if (board.getBoard()[i + k][j + k] == 'X') {
+                            x++;
+                            o = 0;
+                        } else if (board.getBoard()[i][j + k] == 'O') {
+                            o++;
+                            x = 0;
+                        } else {
+                            x = 0;
+                            o = 0;
+                        }
+                    }
+                    if (x >= board.getConnect_num() || o >= board.getConnect_num()) {
                         return true;
                     }
                 }
             }
         }
+        // TODO Change this
         // Checking backslash
         for (int i = board.getRows() - 1; i >= 0; i--){
             for (int j = board.getCols() - 1; j >= 0; j--){
