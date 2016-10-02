@@ -36,9 +36,8 @@ class BoardController {
      * @return false if invalid, true otherwise.
      */
     boolean addMarker(int col) {
-        if (col > 0) {
             col -= 1;
-        }
+
         if (col < board.getCols() && col >= 0) {
             for (int i = board.getRows() - 1; i >= 0; i--) {
                 if (board.getBoard()[i][col] == ' ') {
@@ -73,8 +72,9 @@ class BoardController {
             int blocks = 0;
 
             // Check for blocks down left right left diagonal right diagonal
-            // Down
-            for (int i = row; i >= 0; i--){
+
+            // Look down
+            for (int i = row; i < board.getRows(); i++){
                 if (board.getBoard()[i][col] == 'X'){
                     blocks++;
                 }
@@ -83,24 +83,28 @@ class BoardController {
             hashMap.put(col, blocks);
             theMoves.add(hashMap);
             blocks = 0;
-            // Left
+
+            // Look right
+            for (int i = col; i < board.getCols(); i++){
+                if (board.getBoard()[row][i] == 'X'){
+                    blocks++;
+                }
+            }
+            hashMap = new HashMap<>();
+            hashMap.put(col, blocks);
+            theMoves.add(hashMap);
+            blocks = 0;
+
+            // Look left
             for (int i = col; i >= 0; i--){
-                if (board.getBoard()[i][col] == 'X'){
+                if (board.getBoard()[row][i] == 'X'){
                     blocks++;
                 }
             }
             hashMap = new HashMap<>();
             hashMap.put(col, blocks);
             theMoves.add(hashMap);
-            //Right
-            for (int i = 0; i < col; i++){
-                if (board.getBoard()[i][col] == 'X'){
-                    blocks++;
-                }
-            }
-            hashMap = new HashMap<>();
-            hashMap.put(col, blocks);
-            theMoves.add(hashMap);
+            blocks = 0;
             // Left Diagonal
             // Right Diagonal
         }
@@ -114,7 +118,7 @@ class BoardController {
                 bestMove = (int)entry.getKey();
             }
         }
-        return bestMove;
+        return bestMove + 1;
     }
 
     /**
