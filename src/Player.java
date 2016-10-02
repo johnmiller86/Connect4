@@ -4,7 +4,7 @@
  */
 class Player{
 
-    public static final String PLAYER = "Player";
+    static final String PLAYER = "Player";
     private char playerMark;
     private String currentPlayer;
 
@@ -13,13 +13,21 @@ class Player{
         playerMark = 'X';
     }
 
+    /**
+     * Gets the current player's mark.
+     * @return the mark.
+     */
     char getMark(){
         return playerMark;
     }
 
+    /**
+     * Gets the current player.
+     * @return the player.
+     */
     String getCurrentPlayer(){
         return currentPlayer;
-}
+    }
     /**
      * Switches players.
      */

@@ -62,61 +62,110 @@ class BoardController {
      */
     private int getBestMove(){
         int bestMove = 0;
-        HashMap<Integer, Integer> possibleMoves = getPossibleMoves();
+        ArrayList<HashMap> possibleMoves = getPossibleMoves();
         ArrayList<HashMap> theMoves = new ArrayList<>();
-        Iterator iterator = possibleMoves.entrySet().iterator();
-        while ((iterator.hasNext())){
-            HashMap.Entry kvp = (HashMap.Entry)iterator.next();
-            int row = (int)kvp.getKey();
-            int col = (int)kvp.getValue();
-            int blocks = 0;
+        Iterator iterator;
 
-            // Check for blocks down left right left diagonal right diagonal
+        for (HashMap move : possibleMoves) {
+            iterator = move.entrySet().iterator();
+            while ((iterator.hasNext())) {
+                HashMap.Entry kvp = (HashMap.Entry) iterator.next();
+                int row = (int) kvp.getKey();
+                int col = (int) kvp.getValue();
+                int blocks = 0;
 
-            // Look down
-            for (int i = row; i < board.getRows(); i++){
-                if (board.getBoard()[i][col] == 'X'){
-                    blocks++;
+                // Check for possible blocks
+                // Look South
+                for (int i = row; i < board.getRows(); i++) {
+                    if (board.getBoard()[i][col] == 'X') {
+                        blocks++;
+                    }
+//                    else if (board.getBoard()[i][col] == 'O'){
+//                        // Chain broken
+//                        i = board.getRows();
+//                    }
                 }
-            }
-            HashMap<Integer, Integer> hashMap = new HashMap<>();
-            hashMap.put(col, blocks);
-            theMoves.add(hashMap);
-            blocks = 0;
+//                HashMap<Integer, Integer> hashMap = new HashMap<>();
+//                hashMap.put(col, blocks);
+//                theMoves.add(hashMap);
+//                blocks = 0;
 
-            // Look right
-            for (int i = col; i < board.getCols(); i++){
-                if (board.getBoard()[row][i] == 'X'){
-                    blocks++;
+                // Look east
+                for (int i = col; i < board.getCols(); i++) {
+                    if (board.getBoard()[row][i] == 'X') {
+                        blocks++;
+                    }
+                    // Chain broken
+//                    else if (board.getBoard()[row][i] == 'O'){
+//                        i = board.getCols();
+//                    }
                 }
-            }
-            hashMap = new HashMap<>();
-            hashMap.put(col, blocks);
-            theMoves.add(hashMap);
-            blocks = 0;
+//                hashMap = new HashMap<>();
+//                hashMap.put(col, blocks);
+//                theMoves.add(hashMap);
+//                blocks = 0;
 
-            // Look left
-            for (int i = col; i >= 0; i--){
-                if (board.getBoard()[row][i] == 'X'){
-                    blocks++;
+                // Look west
+                for (int i = col; i >= 0; i--) {
+                    if (board.getBoard()[row][i] == 'X') {
+                        blocks++;
+                    }
+                    // Chain broken
+//                    else if (board.getBoard()[row][i] == 'O'){
+//                        i = -1;
+//                    }
                 }
+//                hashMap = new HashMap<>();
+//                hashMap.put(col, blocks);
+//                theMoves.add(hashMap);
+//                blocks = 0;
+
+                // Look southeast
+                for (int i = row; i < board.getRows(); i++) {
+                    for (int j = col; j < board.getCols(); j++) {
+                        if (board.getBoard()[i][j] == 'X') {
+                            blocks++;
+                        }
+                        // Chain broken
+//                        else if (board.getBoard()[i][j] == 'O'){
+//                            i = board.getRows();
+//                            j = board.getCols();
+//                        }
+                    }
+                }
+//                hashMap = new HashMap<>();
+//                hashMap.put(col, blocks);
+//                theMoves.add(hashMap);
+//                blocks = 0;
+                // Look southwest
+                for (int i = row; i < board.getRows(); i++) {
+                    for (int j = col; j >= 0; j--) {
+                        if (board.getBoard()[i][j] == 'X') {
+                            blocks++;
+                        }
+                        // Chain broken
+//                        else if (board.getBoard()[i][j] == 'O'){
+//                            i = board.getRows();
+//                            j = -1;
+//                        }
+                    }
+                }
+                HashMap<Integer, Integer> hashMap = new HashMap<>();
+                hashMap.put(col, blocks);
+                theMoves.add(hashMap);
             }
-            hashMap = new HashMap<>();
-            hashMap.put(col, blocks);
-            theMoves.add(hashMap);
-            blocks = 0;
-            // Left Diagonal
-            // Right Diagonal
         }
+
         // Determine best move
-        int tracker = 0;
+        int counter = 0;
         for (HashMap hashMap : theMoves){
             iterator = hashMap.entrySet().iterator();
             HashMap.Entry entry = (HashMap.Entry)iterator.next();
-            if ((int)entry.getValue() > tracker){
-                tracker = (int)entry.getValue();
+            if ((int)entry.getValue() > counter){
+                counter = (int)entry.getValue();
                 bestMove = (int)entry.getKey();
             }
+
         }
         return bestMove + 1;
     }
@@ -125,9 +174,10 @@ class BoardController {
      * Gets all the AI's possible moves.
      * @return the HashMap of moves.
      */
-    private HashMap<Integer, Integer> getPossibleMoves(){
+    private ArrayList<HashMap> getPossibleMoves(){
+        ArrayList<HashMap> moveCoordinates= new ArrayList<>();
         ArrayList<Integer> columns = new ArrayList<>();
-        HashMap<Integer, Integer> moveCoordinates = new HashMap<>();
+        //HashMap<Integer, Integer> moveCoordinates = new HashMap<>();
         for (int i = board.getRows() - 1; i >= 0; i--){
             for (int j = board.getCols() - 1; j >= 0; j--){
                 boolean flag = false;
@@ -141,8 +191,10 @@ class BoardController {
                     }
                     // Record
                     if (!flag) {
+                        HashMap hashMap = new HashMap<>();
+                        hashMap.put(i, j);
+                        moveCoordinates.add(hashMap);
                         columns.add(j);
-                        moveCoordinates.put(i, j);
                         System.out.println(i + " " + j);
                     }
                 }
