@@ -88,14 +88,14 @@ class BoardView implements Observer {
                 boardController.computerMove();
             }
 
-            // Game won, don't switch player
+            // Don't switch on winning move
             if (!boardController.gameComplete()) {
                 boardController.switchPlayer();
             }
         }
 
         // Game over
-        if (boardController.isFull()){
+        if (!boardController.gameComplete() && boardController.isFull()){
             System.out.println("The game is a draw...");
         }else {
             System.out.println(boardController.getPlayer() + " wins!!!");
