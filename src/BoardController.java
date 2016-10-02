@@ -54,76 +54,8 @@ class BoardController {
      * AI picks a column.
      */
     void computerMove(){
-        //addMarker(getBestMove());
-//        getPossibleMoves();
         addMarker(getBestMove());
     }
-
-//    private int getBestMove() {
-//        int x, bestMove, position = 0;
-//        ArrayList<Integer> count = new ArrayList<>();
-//
-//        // Checking horizontal
-//        for (int i = 0; i < board.getRows(); i++) {
-//            x = 0;
-//            for (int j = 0; j < board.getCols(); j++) {
-//                if (board.getBoard()[i][j] == 'X') {
-//                    x++;
-//                }
-//            }
-//            count.add(x);
-//        }
-//
-//        // Checking vertical
-//        for (int i = 0; i < board.getRows(); i++){
-//            x = 0;
-//            for (int j = 0; j < board.getRows(); j++){
-//                if (board.getBoard()[j][i] == 'X'){
-//                    x++;
-//                }
-//            }
-//            count.add(x);
-//        }
-//
-//        // Determining best move
-//        bestMove = 0;
-//        for (int i = 0; i < count.size(); i++){
-//            if (count.get(i) > bestMove){
-//                bestMove = count.get(i);
-//                position = i;
-//            }
-//        }
-//
-//        if (position < board.getRows()){
-//            bestMove = count.get(position);
-//        }
-////        // Checking forward slash
-////        for (int i = 0; i < board.getRows(); i++){
-////            for (int j = 0; j < board.getCols(); j++){
-////                if (i + 2 < board.getRows() && j + 2 < board.getCols()) {
-////                    if (board.getBoard()[i][j] == 'X' && board.getBoard()[i + 1][j + 1] == 'X' && board.getBoard()[i + 2][j + 2] == 'X'){
-////                        return true;
-////                    } else if (board.getBoard()[i][j] == 'O' && board.getBoard()[i + 1][j + 1] == 'O' && board.getBoard()[i + 2][j + 2] == 'O'){
-////                        return true;
-////                    }
-////                }
-////            }
-////        }
-////        // Checking backslash
-////        for (int i = board.getRows() - 1; i >= 0; i--){
-////            for (int j = board.getCols() - 1; j >= 0; j--){
-////                if (i - 2 >= 0 && j + 2 < board.getCols()) {
-////                    if (board.getBoard()[i][j] == 'X' && board.getBoard()[i - 1][j + 1] == 'X' && board.getBoard()[i - 2][j + 2] == 'X'){
-////                        return true;
-////                    } else if (board.getBoard()[i][j] == 'O' && board.getBoard()[i - 1][j + 1] == 'O' && board.getBoard()[i - 2][j + 2] == 'O'){
-////                        return true;
-////                    }
-////                }
-////            }
-////        }
-////        return false;
-//        return bestMove;
-//    }
 
     /**
      * Gets the best move for the AI to make.
