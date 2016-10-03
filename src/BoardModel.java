@@ -33,6 +33,7 @@ class BoardModel extends Observable{
         return cols;
     }
 
+
     void setCols(int cols){
         this.cols = cols;
     }
@@ -45,6 +46,10 @@ class BoardModel extends Observable{
         return connect_num;
     }
 
+    /**
+     * Sets the connect number.
+     * @param connect_num the connect number.
+     */
     void setConnect_num(int connect_num){
         this.connect_num = connect_num;
     }

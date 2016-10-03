@@ -85,10 +85,6 @@ class BoardController {
 //                        i = board.getRows();
 //                    }
                 }
-//                HashMap<Integer, Integer> hashMap = new HashMap<>();
-//                hashMap.put(col, blocks);
-//                theMoves.add(hashMap);
-//                blocks = 0;
 
                 // Look east
                 for (int i = col; i < board.getCols(); i++) {
@@ -100,10 +96,6 @@ class BoardController {
 //                        i = board.getCols();
 //                    }
                 }
-//                hashMap = new HashMap<>();
-//                hashMap.put(col, blocks);
-//                theMoves.add(hashMap);
-//                blocks = 0;
 
                 // Look west
                 for (int i = col; i >= 0; i--) {
@@ -115,10 +107,6 @@ class BoardController {
 //                        i = -1;
 //                    }
                 }
-//                hashMap = new HashMap<>();
-//                hashMap.put(col, blocks);
-//                theMoves.add(hashMap);
-//                blocks = 0;
 
                 // Look southeast
                 for (int i = row; i < board.getRows(); i++) {
@@ -133,10 +121,7 @@ class BoardController {
 //                        }
                     }
                 }
-//                hashMap = new HashMap<>();
-//                hashMap.put(col, blocks);
-//                theMoves.add(hashMap);
-//                blocks = 0;
+
                 // Look southwest
                 for (int i = row; i < board.getRows(); i++) {
                     for (int j = col; j >= 0; j--) {
@@ -195,7 +180,7 @@ class BoardController {
                         hashMap.put(i, j);
                         moveCoordinates.add(hashMap);
                         columns.add(j);
-                        System.out.println(i + " " + j);
+//                        System.out.println(i + " " + j);
                     }
                 }
             }
