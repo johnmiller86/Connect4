@@ -81,10 +81,10 @@ class BoardController {
                     if (board.getBoard()[i][col] == 'X') {
                         blocks++;
                     }
-//                    else if (board.getBoard()[i][col] == 'O'){
-//                        // Chain broken
-//                        i = board.getRows();
-//                    }
+                    else if (board.getBoard()[i][col] == 'O' ){
+                        // Chain broken, break
+                        i = board.getRows();
+                    }
                 }
 
                 // Look east
@@ -92,10 +92,10 @@ class BoardController {
                     if (board.getBoard()[row][i] == 'X') {
                         blocks++;
                     }
-                    // Chain broken
-//                    else if (board.getBoard()[row][i] == 'O'){
-//                        i = board.getCols();
-//                    }
+                    // Chain broken, break
+                    else if (board.getBoard()[row][i] == 'O' || board.getBoard()[row][i] == ' '){
+                        i = board.getCols();
+                    }
                 }
 
                 // Look west
@@ -103,10 +103,10 @@ class BoardController {
                     if (board.getBoard()[row][i] == 'X') {
                         blocks++;
                     }
-                    // Chain broken
-//                    else if (board.getBoard()[row][i] == 'O'){
-//                        i = -1;
-//                    }
+                    // Chain broken, break
+                    else if (board.getBoard()[row][i] == 'O' || board.getBoard()[row][i] == ' '){
+                        i = -1;
+                    }
                 }
 
                 // Look southeast
@@ -115,25 +115,25 @@ class BoardController {
                         if (board.getBoard()[i][j] == 'X') {
                             blocks++;
                         }
-                        // Chain broken
-//                        else if (board.getBoard()[i][j] == 'O'){
-//                            i = board.getRows();
-//                            j = board.getCols();
-//                        }
+                        // Chain broken, break
+                        else if (board.getBoard()[i][j] == 'O'){
+                            i = board.getRows();
+                            j = board.getCols();
+                        }
                     }
                 }
 
                 // Look southwest
                 for (int i = row; i < board.getRows(); i++) {
                     for (int j = col; j >= 0; j--) {
-                        if (board.getBoard()[i][j] == 'X') {
+                        if (board.getBoard()[i][j] == Player.PLAYER_MARK) {
                             blocks++;
                         }
-                        // Chain broken
-//                        else if (board.getBoard()[i][j] == 'O'){
-//                            i = board.getRows();
-//                            j = -1;
-//                        }
+                        // Chain broken, break
+                        else if (board.getBoard()[i][j] == 'O'){
+                            i = board.getRows();
+                            j = -1;
+                        }
                     }
                 }
                 HashMap<Integer, Integer> hashMap = new HashMap<>();
@@ -213,10 +213,10 @@ class BoardController {
         for (int i = 0; i < board.getRows(); i++){
             x = 0; o = 0;
             for (int j = 0; j < board.getCols(); j++){
-                if (board.getBoard()[i][j] == 'X'){
+                if (board.getBoard()[i][j] == Player.PLAYER_MARK){
                     x++;
                     o = 0;
-                }else if(board.getBoard()[i][j] == 'O'){
+                }else if(board.getBoard()[i][j] == Player.COMPUTER_MARK){
                     o++;
                     x = 0;
                 }else{
@@ -233,10 +233,10 @@ class BoardController {
         for (int i = 0; i < board.getRows(); i++){
             x = 0; o = 0;
             for (int j = 0; j < board.getRows(); j++){
-                if (board.getBoard()[j][i] == 'X'){
+                if (board.getBoard()[j][i] == Player.PLAYER_MARK){
                     x++;
                     o = 0;
-                }else if(board.getBoard()[j][i] == 'O'){
+                }else if(board.getBoard()[j][i] == Player.COMPUTER_MARK){
                     o++;
                     x = 0;
                 }else{
@@ -255,10 +255,10 @@ class BoardController {
                 x = 0; o = 0;
                 if (i + board.getConnect_num() -1 < board.getRows() && j + board.getConnect_num() - 1 < board.getCols()) {
                     for (int k = 0; k < board.getConnect_num(); k++) {
-                        if (board.getBoard()[i + k][j + k] == 'X') {
+                        if (board.getBoard()[i + k][j + k] == Player.PLAYER_MARK) {
                             x++;
                             o = 0;
-                        } else if (board.getBoard()[i + k][j + k] == 'O') {
+                        } else if (board.getBoard()[i + k][j + k] == Player.COMPUTER_MARK) {
                             o++;
                             x = 0;
                         } else {
@@ -279,10 +279,10 @@ class BoardController {
                 x = 0; o = 0;
                 if (i - board.getConnect_num() + 1 >= 0 && j + board.getConnect_num() - 1 < board.getCols()) {
                     for (int k = 0; k < board.getConnect_num(); k++) {
-                        if (board.getBoard()[i - k][j + k] == 'X') {
+                        if (board.getBoard()[i - k][j + k] == Player.PLAYER_MARK) {
                             x++;
                             o = 0;
-                        } else if (board.getBoard()[i - k][j + k] == 'O') {
+                        } else if (board.getBoard()[i - k][j + k] == Player.COMPUTER_MARK) {
                             o++;
                             x = 0;
                         } else {
