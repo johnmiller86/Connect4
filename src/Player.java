@@ -6,6 +6,7 @@ class Player{
 
     // Global constant
     static final String PLAYER = "Player";
+    private static final String COMPUTER = "Computer";
 
     // Instance vars
     private char playerMark;
@@ -37,7 +38,7 @@ class Player{
      */
     void switchPlayer(){
         if (currentPlayer.equals(PLAYER)){
-            currentPlayer = "Computer";
+            currentPlayer = COMPUTER;
             playerMark = 'O';
         }else{
             currentPlayer = PLAYER;

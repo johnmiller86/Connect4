@@ -42,6 +42,7 @@ class BoardController {
             for (int i = board.getRows() - 1; i >= 0; i--) {
                 if (board.getBoard()[i][col] == ' ') {
                     board.updateData(i, col, player.getMark());
+                    switchPlayer();
                     return true;
                 }
             }
@@ -176,11 +177,10 @@ class BoardController {
                     }
                     // Record
                     if (!flag) {
-                        HashMap hashMap = new HashMap<>();
+                        HashMap<Integer, Integer> hashMap = new HashMap<>();
                         hashMap.put(i, j);
                         moveCoordinates.add(hashMap);
                         columns.add(j);
-//                        System.out.println(i + " " + j);
                     }
                 }
             }
@@ -188,8 +188,14 @@ class BoardController {
         return moveCoordinates;
     }
 
-    void switchPlayer(){
-        player.switchPlayer();
+    /**
+     * Switches the current player.
+     */
+    private void switchPlayer(){
+
+        if (gameComplete()){
+            player.switchPlayer();
+        }
     }
 
     String getPlayer(){
@@ -218,7 +224,7 @@ class BoardController {
                     o = 0;
                 }
                 if (x >= board.getConnect_num() || o >= board.getConnect_num()){
-                    return true;
+                    return false;
                 }
             }
         }
@@ -238,7 +244,7 @@ class BoardController {
                     o = 0;
                 }
                 if (x >= board.getConnect_num() || o >= board.getConnect_num()){
-                    return true;
+                    return false;
                 }
             }
         }
@@ -261,7 +267,7 @@ class BoardController {
                         }
                     }
                     if (x >= board.getConnect_num() || o >= board.getConnect_num()) {
-                        return true;
+                        return false;
                     }
                 }
             }
@@ -285,12 +291,12 @@ class BoardController {
                         }
                     }
                     if (x >= board.getConnect_num() || o >= board.getConnect_num()) {
-                        return true;
+                        return false;
                     }
                 }
             }
         }
-        return false;
+        return true;
     }
 
     /**

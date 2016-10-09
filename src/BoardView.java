@@ -27,7 +27,7 @@ class BoardView implements Observer {
     }
 
     /**
-     * This method is essentially to start the program.
+     * Method to start a game of connect 4.
      */
     void start() {
         Scanner input = new Scanner(System.in);
@@ -35,9 +35,13 @@ class BoardView implements Observer {
 
         // Get desired game
         System.out.print("Enter 3 for connect 3, 4 for connect 4 or 5 for connect 5: ");
-        connect_num = input.nextInt();
 
         // Validating
+        while (!input.hasNextInt()){
+            input.next();
+            System.out.println("Non-numeric input, please try again!");
+        }
+        connect_num = input.nextInt();
         while (connect_num > 5 || connect_num < 3){
             System.out.println("You must choose between connect 3, 4 or 5!");
             System.out.print("Enter 3 for connect 3, 4 for connect 4 or 5 for connect 5: ");
@@ -46,9 +50,13 @@ class BoardView implements Observer {
 
         // Get desired height
         System.out.print("Enter number of rows: ");
-        rows = input.nextInt();
 
         // Validating
+        while (!input.hasNextInt()){
+            input.next();
+            System.out.println("Non-numeric input, please try again!");
+        }
+        rows = input.nextInt();
         while (rows < connect_num){
             System.out.println("You must have at least " + connect_num + " rows for connect " + connect_num + "!");
             System.out.print("Enter number of rows: ");
@@ -57,9 +65,13 @@ class BoardView implements Observer {
 
         // Get desired width
         System.out.print("Enter number of columns: ");
-        cols = input.nextInt();
 
         // Validating
+        while (!input.hasNextInt()){
+            input.next();
+            System.out.println("Non-numeric input, please try again!");
+        }
+        cols = input.nextInt();
         while (cols < connect_num){
             System.out.println("You must have at least " + connect_num + " columns for connect " + connect_num + "!");
             System.out.print("Enter number of columns: ");
@@ -73,29 +85,28 @@ class BoardView implements Observer {
         System.out.println("Game starting...");
 
         // Game loop
-        while (!boardController.gameComplete() && !boardController.isFull()) {
+        while (boardController.gameComplete() && !boardController.isFull()) {
             System.out.println(boardController.getPlayer() + "'s turn");
             if (boardController.getPlayer().equals(Player.PLAYER)) {
                 // Prompting user
                 System.out.println("Enter a column number to add your chip.");
 
                 // Attempting to add marker
-                while (!boardController.addMarker(input.nextInt())) {
+                while (!input.hasNextInt()){
+                    input.next();
+                    System.out.println("Non-numeric input, please try again!");
+                }
+                int col = input.nextInt();
+                if (!boardController.addMarker(col)) {
                     System.out.println("Invalid move!!");
-                    System.out.println("Enter a column number to add your chip.");
                 }
             }else{
                 boardController.computerMove();
             }
-
-            // Don't switch on winning move
-            if (!boardController.gameComplete()) {
-                boardController.switchPlayer();
-            }
         }
 
         // Game over
-        if (!boardController.gameComplete() && boardController.isFull()){
+        if (boardController.gameComplete() && boardController.isFull()){
             System.out.println("The game is a draw...");
         }else {
             System.out.println(boardController.getPlayer() + " wins!!!");

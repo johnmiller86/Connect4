@@ -62,8 +62,9 @@ class BoardModel extends Observable{
         return board;
     }
 
-
-    // Initializing board as not so have \u0000 null values.
+    /**
+     * Initializes the board as not to contain \u0000 null values.
+     */
     void initializeBoard(){
         board = new char[rows][cols];
         for (int i = 0; i < rows; i++){
@@ -84,7 +85,7 @@ class BoardModel extends Observable{
     }
 
     /**
-     * Returns string representation of the board.
+     * Returns a string representation of the board.
      * @return the board string.
      */
     @Override
