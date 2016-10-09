@@ -2,10 +2,10 @@
  * Class to model a player.
  * @author John Miller
  */
-class Player{
+class PlayerModel {
 
     // Global constant
-    static final String PLAYER = "Player";
+    static final String PLAYER = "PlayerModel";
     private static final String COMPUTER = "Computer";
     static final char PLAYER_MARK = 'X';
     static final char COMPUTER_MARK = 'O';
@@ -15,7 +15,7 @@ class Player{
     private String currentPlayer;
 
     // Constructor
-    Player(){
+    PlayerModel(){
         currentPlayer = PLAYER;
         playerMark = 'X';
     }

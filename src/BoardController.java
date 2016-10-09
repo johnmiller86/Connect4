@@ -10,12 +10,12 @@ class BoardController {
 
     // BoardModel model
     private final BoardModel board;
-    private final Player player;
+    private final PlayerModel playerModel;
 
     /// Constructor
     BoardController(BoardModel board) {
         this.board = board;
-        player = new Player();
+        playerModel = new PlayerModel();
     }
 
     /**
@@ -41,7 +41,7 @@ class BoardController {
         if (col < board.getCols() && col >= 0) {
             for (int i = board.getRows() - 1; i >= 0; i--) {
                 if (board.getBoard()[i][col] == ' ') {
-                    board.updateData(i, col, player.getMark());
+                    board.updateData(i, col, playerModel.getMark());
                     switchPlayer();
                     return true;
                 }
@@ -78,10 +78,10 @@ class BoardController {
                 // Check for possible blocks
                 // Look South
                 for (int i = row; i < board.getRows(); i++) {
-                    if (board.getBoard()[i][col] == 'X') {
+                    if (board.getBoard()[i][col] == PlayerModel.PLAYER_MARK) {
                         blocks++;
                     }
-                    else if (board.getBoard()[i][col] == 'O' ){
+                    else if (board.getBoard()[i][col] == PlayerModel.COMPUTER_MARK ){
                         // Chain broken, break
                         i = board.getRows();
                     }
@@ -89,22 +89,22 @@ class BoardController {
 
                 // Look east
                 for (int i = col; i < board.getCols(); i++) {
-                    if (board.getBoard()[row][i] == 'X') {
+                    if (board.getBoard()[row][i] == PlayerModel.PLAYER_MARK) {
                         blocks++;
                     }
                     // Chain broken, break
-                    else if (board.getBoard()[row][i] == 'O' || board.getBoard()[row][i] == ' '){
+                    else if (board.getBoard()[row][i] == PlayerModel.COMPUTER_MARK || board.getBoard()[row][i] == ' '){
                         i = board.getCols();
                     }
                 }
 
                 // Look west
                 for (int i = col; i >= 0; i--) {
-                    if (board.getBoard()[row][i] == 'X') {
+                    if (board.getBoard()[row][i] == PlayerModel.PLAYER_MARK) {
                         blocks++;
                     }
                     // Chain broken, break
-                    else if (board.getBoard()[row][i] == 'O' || board.getBoard()[row][i] == ' '){
+                    else if (board.getBoard()[row][i] == PlayerModel.COMPUTER_MARK || board.getBoard()[row][i] == ' '){
                         i = -1;
                     }
                 }
@@ -112,11 +112,11 @@ class BoardController {
                 // Look southeast
                 for (int i = row; i < board.getRows(); i++) {
                     for (int j = col; j < board.getCols(); j++) {
-                        if (board.getBoard()[i][j] == 'X') {
+                        if (board.getBoard()[i][j] == PlayerModel.PLAYER_MARK) {
                             blocks++;
                         }
                         // Chain broken, break
-                        else if (board.getBoard()[i][j] == 'O'){
+                        else if (board.getBoard()[i][j] == PlayerModel.COMPUTER_MARK){
                             i = board.getRows();
                             j = board.getCols();
                         }
@@ -126,11 +126,11 @@ class BoardController {
                 // Look southwest
                 for (int i = row; i < board.getRows(); i++) {
                     for (int j = col; j >= 0; j--) {
-                        if (board.getBoard()[i][j] == Player.PLAYER_MARK) {
+                        if (board.getBoard()[i][j] == PlayerModel.PLAYER_MARK) {
                             blocks++;
                         }
                         // Chain broken, break
-                        else if (board.getBoard()[i][j] == 'O'){
+                        else if (board.getBoard()[i][j] == PlayerModel.COMPUTER_MARK){
                             i = board.getRows();
                             j = -1;
                         }
@@ -189,17 +189,17 @@ class BoardController {
     }
 
     /**
-     * Switches the current player.
+     * Switches the current playerModel.
      */
     private void switchPlayer(){
 
         if (gameComplete()){
-            player.switchPlayer();
+            playerModel.switchPlayer();
         }
     }
 
-    String getPlayer(){
-        return player.getCurrentPlayer();
+    String getPlayerModel(){
+        return playerModel.getCurrentPlayer();
     }
 
     /**
@@ -213,10 +213,10 @@ class BoardController {
         for (int i = 0; i < board.getRows(); i++){
             x = 0; o = 0;
             for (int j = 0; j < board.getCols(); j++){
-                if (board.getBoard()[i][j] == Player.PLAYER_MARK){
+                if (board.getBoard()[i][j] == PlayerModel.PLAYER_MARK){
                     x++;
                     o = 0;
-                }else if(board.getBoard()[i][j] == Player.COMPUTER_MARK){
+                }else if(board.getBoard()[i][j] == PlayerModel.COMPUTER_MARK){
                     o++;
                     x = 0;
                 }else{
@@ -233,10 +233,10 @@ class BoardController {
         for (int i = 0; i < board.getRows(); i++){
             x = 0; o = 0;
             for (int j = 0; j < board.getRows(); j++){
-                if (board.getBoard()[j][i] == Player.PLAYER_MARK){
+                if (board.getBoard()[j][i] == PlayerModel.PLAYER_MARK){
                     x++;
                     o = 0;
-                }else if(board.getBoard()[j][i] == Player.COMPUTER_MARK){
+                }else if(board.getBoard()[j][i] == PlayerModel.COMPUTER_MARK){
                     o++;
                     x = 0;
                 }else{
@@ -255,10 +255,10 @@ class BoardController {
                 x = 0; o = 0;
                 if (i + board.getConnect_num() -1 < board.getRows() && j + board.getConnect_num() - 1 < board.getCols()) {
                     for (int k = 0; k < board.getConnect_num(); k++) {
-                        if (board.getBoard()[i + k][j + k] == Player.PLAYER_MARK) {
+                        if (board.getBoard()[i + k][j + k] == PlayerModel.PLAYER_MARK) {
                             x++;
                             o = 0;
-                        } else if (board.getBoard()[i + k][j + k] == Player.COMPUTER_MARK) {
+                        } else if (board.getBoard()[i + k][j + k] == PlayerModel.COMPUTER_MARK) {
                             o++;
                             x = 0;
                         } else {
@@ -279,10 +279,10 @@ class BoardController {
                 x = 0; o = 0;
                 if (i - board.getConnect_num() + 1 >= 0 && j + board.getConnect_num() - 1 < board.getCols()) {
                     for (int k = 0; k < board.getConnect_num(); k++) {
-                        if (board.getBoard()[i - k][j + k] == Player.PLAYER_MARK) {
+                        if (board.getBoard()[i - k][j + k] == PlayerModel.PLAYER_MARK) {
                             x++;
                             o = 0;
-                        } else if (board.getBoard()[i - k][j + k] == Player.COMPUTER_MARK) {
+                        } else if (board.getBoard()[i - k][j + k] == PlayerModel.COMPUTER_MARK) {
                             o++;
                             x = 0;
                         } else {

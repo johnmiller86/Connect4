@@ -86,8 +86,8 @@ class BoardView implements Observer {
 
         // Game loop
         while (boardController.gameComplete() && !boardController.isFull()) {
-            System.out.println(boardController.getPlayer() + "'s turn");
-            if (boardController.getPlayer().equals(Player.PLAYER)) {
+            System.out.println(boardController.getPlayerModel() + "'s turn");
+            if (boardController.getPlayerModel().equals(PlayerModel.PLAYER)) {
                 // Prompting user
                 System.out.println("Enter a column number to add your chip.");
 
@@ -109,7 +109,7 @@ class BoardView implements Observer {
         if (boardController.gameComplete() && boardController.isFull()){
             System.out.println("The game is a draw...");
         }else {
-            System.out.println(boardController.getPlayer() + " wins!!!");
+            System.out.println(boardController.getPlayerModel() + " wins!!!");
         }
     }
 }

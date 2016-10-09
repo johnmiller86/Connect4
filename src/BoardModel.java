@@ -2,7 +2,7 @@ import java.util.Observable;
 
 /**
  * Class to model a connect 4 board.
- * @author chefj
+ * @author John Miller
  */
 class BoardModel extends Observable{
 
